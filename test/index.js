@@ -7,6 +7,7 @@ const electronToChromiumData = require("../data/electron-to-chromium");
 const {
   validateModulesOption,
   validateLooseOption,
+  validateSpecOption,
   validatePluginsOption,
   validIncludesAndExcludes,
   checkDuplicateIncludeExcludes
