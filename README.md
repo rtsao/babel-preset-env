@@ -97,6 +97,11 @@ If you want to compile against the current node version, you can specify `"node"
 
 > Note, browsers' results are overridden by explicit items from `targets`.
 
+### `spec`: `boolean`
+
+Defaults to `false`.
+Enable more spec compliant, but potentially slower, transformations for any plugins in this preset that support them.
+
 ### `loose`: `boolean`
 
 Defaults to `false`.
