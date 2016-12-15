@@ -151,16 +151,16 @@ export const validateBoolOption = (name, value, defaultValue) => {
   if (typeof value !== "boolean") {
     throw new Error(`Preset env: '${name}' option must be a boolean.`);
   }
-  
+
   return value;
-}
+};
 
 // TODO: Allow specifying plugins as either shortened or full name
 // babel-plugin-transform-es2015-classes
 // transform-es2015-classes
-export const validateLooseOption = (looseOpt) => validateBoolOption('loose', looseOpt, false);
+export const validateLooseOption = (looseOpt) => validateBoolOption("loose", looseOpt, false);
 
-export const validateSpecOption = (specOpt) => validateBoolOption('spec', specOpt, false);
+export const validateSpecOption = (specOpt) => validateBoolOption("spec", specOpt, false);
 
 export const validateModulesOption = (modulesOpt = "commonjs") => {
   if (modulesOpt !== false && Object.keys(MODULE_TRANSFORMATIONS).indexOf(modulesOpt) === -1) {
