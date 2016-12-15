@@ -175,7 +175,7 @@ describe("babel-preset-env", () => {
       assert(validateLooseOption(true) === true);
     });
   });
-  
+
   describe("validateSpecOption", () => {
     it("`undefined` option returns false", () => {
       assert(validateSpecOption() === false);
