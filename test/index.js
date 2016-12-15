@@ -173,13 +173,22 @@ describe("babel-preset-env", () => {
     it("`true` option returns true", () => {
       assert(validateLooseOption(true) === true);
     });
+  });
+  
+  describe("validateSpecOption", () => {
+    it("`undefined` option returns false", () => {
+      assert(validateSpecOption() === false);
+    });
 
-    it("array option is invalid", () => {
-      assert.throws(() => {
-        validateModulesOption([]);
-      }, Error);
+    it("`false` option returns false", () => {
+      assert(validateSpecOption(false) === false);
+    });
+
+    it("`true` option returns true", () => {
+      assert(validateSpecOption(true) === true);
     });
   });
+
 
   describe("validateModulesOption", () => {
     it("`undefined` option returns commonjs", () => {
