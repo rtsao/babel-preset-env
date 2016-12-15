@@ -143,16 +143,24 @@ export const getTargets = (targets = {}) => {
   return targetOps;
 };
 
+export const validateBoolOption = (name, value, defaultValue) => {
+  if (typeof value === "undefined") {
+    value = defaultValue;
+  }
+
+  if (typeof value !== "boolean") {
+    throw new Error(`Preset env: '${name}' option must be a boolean.`);
+  }
+  
+  return value;
+}
+
 // TODO: Allow specifying plugins as either shortened or full name
 // babel-plugin-transform-es2015-classes
 // transform-es2015-classes
-export const validateLooseOption = (looseOpt = false) => {
-  if (typeof looseOpt !== "boolean") {
-    throw new Error("Preset env: 'loose' option must be a boolean.");
-  }
+export const validateLooseOption = (looseOpt) => validateBoolOption('loose', looseOpt, false);
 
-  return looseOpt;
-};
+export const validateSpecOption = (specOpt) => validateBoolOption('spec', specOpt, false);
 
 export const validateModulesOption = (modulesOpt = "commonjs") => {
   if (modulesOpt !== false && Object.keys(MODULE_TRANSFORMATIONS).indexOf(modulesOpt) === -1) {
@@ -216,6 +224,7 @@ const logPlugin = (plugin, targets, list) => {
 
 export default function buildPreset(context, opts = {}) {
   const loose = validateLooseOption(opts.loose);
+  const spec = validateSpecOption(opts.spec);
   const moduleType = validateModulesOption(opts.modules);
   // TODO: remove whitelist in favor of include in next major
   if (opts.whitelist && !hasBeenWarned) {
@@ -267,11 +276,13 @@ export default function buildPreset(context, opts = {}) {
   const modulePlugin = moduleType !== false && MODULE_TRANSFORMATIONS[moduleType];
   const plugins = [];
 
+  // NOTE: not giving spec here yet to avoid compatibility issues when
+  // babel-plugin-transform-es2015-modules-commonjs gets its spec mode
   modulePlugin &&
     plugins.push([require(`babel-plugin-${modulePlugin}`), { loose }]);
 
   plugins.push(...allTransformations.map((pluginName) =>
-    [require(`babel-plugin-${pluginName}`), { loose }]
+    [require(`babel-plugin-${pluginName}`), { spec, loose }]
   ));
 
   useBuiltIns &&
