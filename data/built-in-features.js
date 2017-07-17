@@ -179,3 +179,15 @@ const es2017 = {
 };
 
 module.exports = Object.assign({}, es2015, es2016, es2017);
+
+Object.defineProperties(module.exports, {
+  es2015: {
+    value: es2015
+  },
+  es2016: {
+    value: es2016
+  },
+  es2017: {
+    value: es2017
+  },
+});
